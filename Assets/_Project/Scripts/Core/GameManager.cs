@@ -20,6 +20,7 @@ namespace EscapeTheLava.Core
         [SerializeField] private LivesController livesController;
         [SerializeField] private GridManager gridManager;
         [SerializeField] private TimerController timerController;
+        [SerializeField] private EscapeTheLava.UI.ScorePopupSpawner scorePopupSpawner;
 
         public static event System.Action<GameState> OnGameEnded;
 
@@ -74,7 +75,7 @@ namespace EscapeTheLava.Core
             return CurrentState == GameState.Playing;
         }
 
-        public void HandleTileTapped(Tile tile)
+        public void HandleTileTapped(Tile tile, Vector2 screenPosition)
         {
             if (!IsInputAllowed()) return;               // blocks input after Win/Lose
             if (tile.State != TileState.Active) return;   // blocks double-fire on same tile
@@ -85,9 +86,11 @@ namespace EscapeTheLava.Core
             {
                 case TileType.Diamond:
                     scoreController.CollectDiamond();
+                    scorePopupSpawner.SpawnDiamondPopup(screenPosition);
                     break;
                 case TileType.Lava:
                     livesController.LoseLife();
+                    scorePopupSpawner.SpawnLavaPopup(screenPosition);
                     break;
                 case TileType.Island:
                     // intentionally no effect

@@ -81,9 +81,9 @@ namespace EscapeTheLava.Grid
             return TileType.Island;
         }
 
-        private void HandleTileTapped(Tile tile)
+        private void HandleTileTapped(Tile tile, Vector2 screenPosition)
         {
-            GameManager.Instance.HandleTileTapped(tile);
+            GameManager.Instance.HandleTileTapped(tile, screenPosition);
         }
 
         private void OnDisable()

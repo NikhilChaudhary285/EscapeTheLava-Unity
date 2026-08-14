@@ -13,7 +13,7 @@ namespace EscapeTheLava.Grid
         public int Col { get; private set; }
 
         // GridManager subscribes to this to react to taps (collect / damage / ignore)
-        public static event Action<Tile> OnTileTapped;
+        public static event Action<Tile, Vector2> OnTileTapped;
 
         private SpriteRenderer _renderer;
 
@@ -73,7 +73,8 @@ namespace EscapeTheLava.Grid
         // Works for both mouse clicks and touch taps in the Editor/on-device.
         private void OnMouseDown()
         {
-            OnTileTapped?.Invoke(this);
+            Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+            OnTileTapped?.Invoke(this, screenPos);
         }
 
         private void Update()
