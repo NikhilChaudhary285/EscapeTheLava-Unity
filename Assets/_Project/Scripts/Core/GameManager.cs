@@ -21,6 +21,8 @@ namespace EscapeTheLava.Core
         [SerializeField] private GridManager gridManager;
         [SerializeField] private TimerController timerController;
 
+        public static event System.Action<GameState> OnGameEnded;
+
         private void Awake()
         {
             // Simple singleton — fine for a project this size, no need for DI here.
@@ -55,6 +57,7 @@ namespace EscapeTheLava.Core
             CurrentState = GameState.Won;
             timerController.StopTimer();
             Debug.Log("Round WON. State = Won");
+            OnGameEnded?.Invoke(CurrentState);
         }
 
         public void LoseRound()
@@ -63,6 +66,7 @@ namespace EscapeTheLava.Core
             CurrentState = GameState.Lost;
             timerController.StopTimer();
             Debug.Log("Round LOST. State = Lost");
+            OnGameEnded?.Invoke(CurrentState);
         }
 
         public bool IsInputAllowed()
