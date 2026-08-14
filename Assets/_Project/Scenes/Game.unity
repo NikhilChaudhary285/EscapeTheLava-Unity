@@ -132,6 +132,8 @@ GameObject:
   m_Component:
   - component: {fileID: 647329626}
   - component: {fileID: 647329627}
+  - component: {fileID: 647329629}
+  - component: {fileID: 647329628}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -164,6 +166,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c9c82a862f84044993277f6aed97401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreController: {fileID: 647329629}
+  livesController: {fileID: 647329628}
+  gridManager: {fileID: 1533013167}
+--- !u!114 &647329628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647329625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d4a092d967c554e81446e4a229417b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingLives: 5
+--- !u!114 &647329629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647329625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2838de00c1db27a479ef662a5e84eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1533013165

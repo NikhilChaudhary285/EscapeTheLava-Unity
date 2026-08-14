@@ -1,3 +1,4 @@
+using EscapeTheLava.Core;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,11 @@ namespace EscapeTheLava.Grid
         private void Awake()
         {
             BuildGrid();
+        }
+
+        private void OnEnable()
+        {
+            Tile.OnTileTapped += HandleTileTapped;
         }
 
         private void BuildGrid()
@@ -73,6 +79,16 @@ namespace EscapeTheLava.Grid
             if (roll < diamondChance) return TileType.Diamond;
             if (roll < diamondChance + lavaChance) return TileType.Lava;
             return TileType.Island;
+        }
+
+        private void HandleTileTapped(Tile tile)
+        {
+            GameManager.Instance.HandleTileTapped(tile);
+        }
+
+        private void OnDisable()
+        {
+            Tile.OnTileTapped -= HandleTileTapped;
         }
     }
 }
