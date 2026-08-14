@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 647329627}
   - component: {fileID: 647329629}
   - component: {fileID: 647329628}
+  - component: {fileID: 647329630}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -171,6 +172,7 @@ MonoBehaviour:
   scoreController: {fileID: 647329629}
   livesController: {fileID: 647329628}
   gridManager: {fileID: 1533013167}
+  timerController: {fileID: 647329630}
 --- !u!114 &647329628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +198,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2838de00c1db27a479ef662a5e84eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &647329630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647329625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93bd533d273662b488fb414488c9ce79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingTime: 30
 --- !u!1 &1533013165
 GameObject:
   m_ObjectHideFlags: 0

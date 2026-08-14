@@ -19,6 +19,7 @@ namespace EscapeTheLava.Core
         [SerializeField] private ScoreController scoreController;
         [SerializeField] private LivesController livesController;
         [SerializeField] private GridManager gridManager;
+        [SerializeField] private TimerController timerController;
 
         private void Awake()
         {
@@ -36,6 +37,7 @@ namespace EscapeTheLava.Core
             scoreController.Initialize(gridManager.TotalDiamonds);
             ScoreController.OnAllDiamondsCollected += WinRound;
             LivesController.OnLivesDepleted += LoseRound;
+            TimerController.OnTimerExpired += LoseRound;
 
             StartRound();
         }
@@ -43,6 +45,7 @@ namespace EscapeTheLava.Core
         public void StartRound()
         {
             CurrentState = GameState.Playing;
+            timerController.StartTimer();
             Debug.Log("Round started. State = Playing");
         }
 
@@ -50,6 +53,7 @@ namespace EscapeTheLava.Core
         {
             if (CurrentState != GameState.Playing) return; // prevents double-trigger
             CurrentState = GameState.Won;
+            timerController.StopTimer();
             Debug.Log("Round WON. State = Won");
         }
 
@@ -57,6 +61,7 @@ namespace EscapeTheLava.Core
         {
             if (CurrentState != GameState.Playing) return; // prevents double-trigger
             CurrentState = GameState.Lost;
+            timerController.StopTimer();
             Debug.Log("Round LOST. State = Lost");
         }
 
@@ -90,6 +95,7 @@ namespace EscapeTheLava.Core
         {
             ScoreController.OnAllDiamondsCollected -= WinRound;
             LivesController.OnLivesDepleted -= LoseRound;
+            TimerController.OnTimerExpired -= LoseRound;
         }
     }
 }
