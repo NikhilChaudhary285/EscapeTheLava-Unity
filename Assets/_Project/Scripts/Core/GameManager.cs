@@ -21,6 +21,7 @@ namespace EscapeTheLava.Core
         [SerializeField] private GridManager gridManager;
         [SerializeField] private TimerController timerController;
         [SerializeField] private EscapeTheLava.UI.ScorePopupSpawner scorePopupSpawner;
+        [SerializeField] private EscapeTheLava.VFX.VfxManager vfxManager;
 
         public static event System.Action<GameState> OnGameEnded;
 
@@ -91,6 +92,7 @@ namespace EscapeTheLava.Core
                 case TileType.Lava:
                     livesController.LoseLife();
                     scorePopupSpawner.SpawnLavaPopup(screenPosition);
+                    vfxManager.PlayLavaSplash(tile.transform.position);
                     break;
                 case TileType.Island:
                     // intentionally no effect
