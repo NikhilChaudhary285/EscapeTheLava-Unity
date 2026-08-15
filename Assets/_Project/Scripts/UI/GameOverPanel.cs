@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using EscapeTheLava.Core;
 using EscapeTheLava.Systems;
@@ -23,6 +24,15 @@ namespace EscapeTheLava.UI
             new Keyframe(1f, 1f)
         ); // slight overshoot ("pop") then settle — reads as punchy, not robotic
         [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+        [Header("Result Backgrounds")]
+        [SerializeField] private Image resultBackground;
+        [SerializeField] private Sprite winBackground;
+        [SerializeField] private Sprite lossBackground;
+
+        [Header("Result Text Colors")]
+        [SerializeField] private Color winTextColor = new Color(0.06f, 0.09f, 0.16f); // Deep navy
+        [SerializeField] private Color lossTextColor = new Color(1.0f, 0.78f, 0.18f); // Golden yellow
 
         private RectTransform _rectTransform;
         private Coroutine _activeAnimation;
@@ -51,8 +61,13 @@ namespace EscapeTheLava.UI
 
         private void HandleGameEnded(GameState finalState)
         {
-            resultText.text = finalState == GameState.Won ? "YOU WIN!" : "GAME OVER";
+            bool won = finalState == GameState.Won;
+            resultText.text = won ? "YOU WIN!" : "GAME OVER";
             finalScoreText.text = $"Score: {scoreController.Score}";
+            resultBackground.sprite = won ? winBackground : lossBackground;
+            Color resultColor = won ? winTextColor : lossTextColor;
+            resultText.color = resultColor;
+            finalScoreText.color = resultColor;
             Show();
         }
 

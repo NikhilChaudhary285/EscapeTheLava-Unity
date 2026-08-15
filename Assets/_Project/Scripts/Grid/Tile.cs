@@ -22,6 +22,11 @@ namespace EscapeTheLava.Grid
         private static readonly Color DiamondColor = new Color(0.25f, 0.55f, 0.95f); // blue
         private static readonly Color LavaColor = new Color(0.85f, 0.2f, 0.15f);     // red
 
+        [Header("Tile Sprites (assigns in Inspector)")]
+        [SerializeField] private Sprite islandSprite;
+        [SerializeField] private Sprite diamondSprite;
+        [SerializeField] private Sprite lavaSprite;
+
         // Idle Animation Tuning
         [Header("Idle Animation Tuning")]
         [SerializeField] private float diamondFloatAmplitude = 0.08f;
@@ -31,6 +36,7 @@ namespace EscapeTheLava.Grid
 
         private Vector3 _baseLocalPosition;
         private Color _baseColor;
+        private Sprite _baseSprite;
         private float _idleTimeOffset; // staggers tiles so they don't all pulse in perfect sync
 
         private void Awake()
@@ -44,7 +50,8 @@ namespace EscapeTheLava.Grid
             Row = row;
             Col = col;
             State = TileState.Active;
-            _renderer.color = GetColorForType(type);
+            _renderer.color = Color.white; // sprite carries the artwork now; color is reserved for the lava glow tint
+            _renderer.sprite = GetSpriteForType(type);
             gameObject.name = $"Tile_{type}_{row}_{col}";
 
             _baseLocalPosition = transform.localPosition;
@@ -60,6 +67,17 @@ namespace EscapeTheLava.Grid
                 TileType.Diamond => DiamondColor,
                 TileType.Lava => LavaColor,
                 _ => Color.white
+            };
+        }
+
+        private Sprite GetSpriteForType(TileType type)
+        {
+            return type switch
+            {
+                TileType.Island => islandSprite,
+                TileType.Diamond => diamondSprite,
+                TileType.Lava => lavaSprite,
+                _ => null
             };
         }
 

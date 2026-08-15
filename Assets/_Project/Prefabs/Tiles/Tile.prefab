@@ -143,3 +143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbaa1c1ace255240be015ced1b934ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  islandSprite: {fileID: 21300000, guid: c828652eeda1e8144b45ccfa129ebd64, type: 3}
+  diamondSprite: {fileID: 21300000, guid: e5d3943459321194d93cf98fb3c750cf, type: 3}
+  lavaSprite: {fileID: 21300000, guid: a7a577b886778eb4da80f71e42be3126, type: 3}
+  diamondFloatAmplitude: 0.08
+  diamondFloatSpeed: 2.5
+  lavaGlowSpeed: 1.8
+  lavaGlowMinBrightness: 0.75
