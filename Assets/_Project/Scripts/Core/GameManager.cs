@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using EscapeTheLava.Core;
 using EscapeTheLava.Grid;
@@ -16,12 +17,17 @@ namespace EscapeTheLava.Core
 
         public GameState CurrentState { get; private set; } = GameState.Ready;
 
+        [Header("Game Systems & Managers")]
         [SerializeField] private ScoreController scoreController;
         [SerializeField] private LivesController livesController;
         [SerializeField] private GridManager gridManager;
         [SerializeField] private TimerController timerController;
         [SerializeField] private EscapeTheLava.UI.ScorePopupSpawner scorePopupSpawner;
         [SerializeField] private EscapeTheLava.VFX.VfxManager vfxManager;
+
+        [Header("Screen Shake")]
+        [SerializeField] private float shakeDuration = 0.15f;
+        [SerializeField] private float shakeMagnitude = 0.12f;
 
         public static event System.Action<GameState> OnGameEnded;
 
@@ -88,16 +94,36 @@ namespace EscapeTheLava.Core
                 case TileType.Diamond:
                     scoreController.CollectDiamond();
                     scorePopupSpawner.SpawnDiamondPopup(screenPosition);
+                    vfxManager.PlayDiamondSparkle(tile.transform.position);
                     break;
                 case TileType.Lava:
                     livesController.LoseLife();
                     scorePopupSpawner.SpawnLavaPopup(screenPosition);
                     vfxManager.PlayLavaSplash(tile.transform.position);
+                    StartCoroutine(ShakeCamera());
                     break;
                 case TileType.Island:
                     // intentionally no effect
                     break;
             }
+        }
+
+        private IEnumerator ShakeCamera()
+        {
+            Transform camTransform = Camera.main.transform;
+            Vector3 originalPos = camTransform.localPosition;
+            float elapsed = 0f;
+
+            while (elapsed < shakeDuration)
+            {
+                elapsed += Time.deltaTime;
+                float x = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
+                float y = UnityEngine.Random.Range(-1f, 1f) * shakeMagnitude;
+                camTransform.localPosition = originalPos + new Vector3(x, y, 0f);
+                yield return null;
+            }
+
+            camTransform.localPosition = originalPos;
         }
 
         private void OnDestroy()
