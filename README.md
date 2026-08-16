@@ -83,7 +83,7 @@ Assets/_Project/
     VFX/              VfxManager
   Prefabs/
     Tiles/           Tile, LavaSplashVFX, DiamondSparkleVFX
-    UI/               Heart, ScorePopup, Button_Restart
+    UI/               Heart, ScorePopup
   Art/Sprites/         Final tile/UI artwork (Lava, Diamond, Island, Heart,
                        Win/Loss panel backgrounds, Restart button)
 ```
